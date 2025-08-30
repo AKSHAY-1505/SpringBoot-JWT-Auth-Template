@@ -1,118 +1,102 @@
-# JWT Authentication Template (Spring Boot)
+# 🔐 JWT Authentication Template (Spring Boot)
 
-This is a **Spring Boot JWT Authentication Starter Template** that provides a fully functional setup for **JWT-based login and authentication** out of the box.  
-
-The main goal of this project is to save setup time for future Spring Boot projects.  
-Instead of rewriting JWT authentication every time, you can clone this repo, rename the project, configure the database, and directly work on the business logic.
+A **Spring Boot 3.5.x starter template** with **JWT-based authentication and authorization** pre-configured.  
+Use this template to **save setup time** for new projects – just clone, rename, configure, and start building business logic 🚀.
 
 ---
 
-## 🚀 Features
-- Spring Boot 3.5.x
-- Java 21
-- JWT Authentication with Spring Security
-- MySQL Database integration (via Spring Data JPA)
-- Validation support (`spring-boot-starter-validation`)
-- Ready-to-use boilerplate for quick start
+## ✨ Features
+- ✅ Spring Boot **3.5.x**
+- ✅ Java **21**
+- ✅ **JWT Authentication** with Spring Security
+- ✅ **MySQL** integration (Spring Data JPA)
+- ✅ Input validation (`spring-boot-starter-validation`)
+- ✅ Pre-seeded users (Admin & SuperAdmin)
+- ✅ Clean boilerplate for quick start
 
 ---
 
-## 🛠️ Getting Started
+## ⚡ Getting Started
 
-### 1. Clone the Project
-```
-git clone https://github.com/your-username/jwt-auth-template.git
+### 1️⃣ Clone the Project
+```bash
+git clone https://github.com/AKSHAY-1505/SpringBoot-JWT-Auth-Template.git
 cd jwt-auth-template
-```
+````
 
 ---
 
-### 2. Remove Existing Git Repository
+### 2️⃣ Reset Git Repository
 
-Since this is a template, you’ll want to delete the existing git history before starting your own project:
+Since this is a template, remove the existing git history:
 
-```
+```bash
 rm -rf .git
 git init
 git add .
 git commit -m "Initial commit - My Project"
 ```
 
-Now you can connect your project to a new remote repository (Google it)
+> 🔗 Now connect to your own remote repository.
 
 ---
 
-### 3. Change the Project Name
+### 3️⃣ Rename the Project
 
-#### A. Change Project Name in pom.xml
+#### A. Update `pom.xml`
 
-The template project is currently named **`jwt-auth-template`** (`groupId: com.akshay`, `artifactId: jwt-auth-template`).  
-To rename it for your use case, update the following:
+Change project identifiers:
 
-**`pom.xml`**
-
-Update the `<groupId>` and `<artifactId>` and `<name>` fields:
-```
+```xml
 <groupId>com.yourname</groupId>
 <artifactId>your-project-name</artifactId>
 <name>your-project-name</name>
 ```
 
-artifactId and name are usually your project name separated by '-'
+#### B. Update `application.properties`
 
-#### B. Change Project Name in application.properties
+```properties
+spring.application.name=your-project-name
+```
 
-change the value of `spring.application.name` in **`application.properties`**
+#### C. Refactor Package & Main Class (IntelliJ Recommended)
 
-#### C. Change the Package Names
-Use IntelliJ for the following steps
-- Navigate to `src/main/java/com/akshay/jwt_auth_template`
-- Right Click on `com.akshay.jwt_auth_template`, refactor → Rename → All Directories -> Provide your Project Name
-- Right Click on `JwtAuthTemplateApplication.java`, refactor → Rename → "YourProjectNameApplication"
+* Refactor package: `src/main/java/com/akshay/jwt_auth_template` → `com.yourname.projectname`
+* Rename main class: `JwtAuthTemplateApplication.java` → `YourProjectNameApplication.java`
 
 ---
 
-### 4. Database Configuration
+### 4️⃣ Configure Database
 
-Database connection settings are configured in the **`application.properties`** file (located in `src/main/resources`).
-👉 Update the values (`your_database`, `your_db_username`, `your_db_password`) according to your local or production setup.
+Edit `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/your_database
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
+```
 
 ---
 
-### 5. Replace your private key used for JWT in **`application.properties`**
+### 5️⃣ Configure JWT Secret Key
 
-To change the **JWT secret key** in your Spring Boot project, generate a new private key string, encode it using base64 (with https://www.base64encode.org/), and update it in your `application.properties` file as described below
+#### A. Generate a Strong Key
 
-#### A. Choose a New Secret Key
-Decide on a strong, random string for your new secret key—for example:
+Use a secure random string (≥32 chars):
+
 ```
 my_new_ultra_secure_secret_key
 ```
-Use at least 32 random characters (letters, numbers, symbols) for good security.[4]
 
-***
+#### B. Encode with Base64
 
-#### B. Encode the Key with base64
+Use [Base64 Encoder](https://www.base64encode.org/) → Encode your key.
+Example:
 
-- Open https://www.base64encode.org/
-- Paste your new secret key in the "Encode to Base64" field.
-- Click the "Encode" button.
-- Copy the generated base64 string from the result box.
+* Input: `my_new_ultra_secure_secret_key`
+* Output: `bXlfbmV3X3VsdHJhX3NlY3VyZV9zZWNyZXRfa2V5`
 
-Example input:
-```
-my_new_ultra_secure_secret_key
-```
-Example output:
-```
-bXlfbmV3X3VsdHJhX3NlY3VyZV9zZWNyZXRfa2V5
-```
-
-***
-
-#### C. Add the Encoded Key to `application.properties`
-
-Replace the `security.jwt.secret-key` property value:
+#### C. Add to `application.properties`
 
 ```properties
 security.jwt.secret-key=bXlfbmV3X3VsdHJhX3NlY3VyZV9zZWNyZXRfa2V5
@@ -120,106 +104,60 @@ security.jwt.secret-key=bXlfbmV3X3VsdHJhX3NlY3VyZV9zZWNyZXRfa2V5
 
 ---
 
-## 📦 Endpoints in Template for Testing
+## 📡 API Endpoints
 
-Below are the **key details and endpoints** for your Spring Boot JWT authentication project, including roles, HTTP methods, request bodies, and authorization requirements:
+### Roles Available
 
-***
-
-## Roles Used
-
-- **User**
-- **Admin**
-- **SuperAdmin**
-
-***
-
-## API Endpoints
-
-### Register a New User
-- **POST** `/auth/register`
-- **Request Body**:
-  ```json
-  { "email": "", "password": "", "fullName": "" }
-  ```
-- **Access**: Public (no authentication required)
-
-***
-
-### Login (Obtain JWT Token)
-- **POST** `/auth/login`
-- **Request Body**:
-  ```json
-  { "email": "", "password": "" }
-  ```
-- **Access**: Public (no authentication required)
-- **Response**: JWT token for authenticated access
-
-***
-
-### Create Admins (SuperAdmins only)
-- **POST** `/admins`
-- **Request Body**:
-  ```json
-  { "email": "", "password": "", "fullName": "" }
-  ```
-- **Access**: Allowed only for **SuperAdmins**
-- **Authorization**: JWT Bearer token in `Authorization` header
-
-***
-
-### Get Current User Info
-- **GET** `/users/me`
-- **Request Body**: None
-- **Access**: Any authenticated **User, Admin, or SuperAdmin**
-- **Authorization**: JWT Bearer token in `Authorization` header
-
-***
-
-### Get All Users (For Admins & SuperAdmins)
-- **GET** `/users`
-- **Request Body**: None
-- **Access**: Allowed only for **Admins** and **SuperAdmins**
-- **Authorization**: JWT Bearer token in `Authorization` header
-
-***
-
-**Note:**  
-For all endpoints requiring authentication, include the JWT token in the request:
-```
-Authorization: Bearer <jwt_token>
-```
-
-***
-
-## Pre-seeded Users
-
-When the project starts, **two users are automatically created in the database using DB seed logic** for easier initial access and administration:
-
-
-- **Admin**
-    - Email: `admin@mail.com`
-    - Password: `111111`
-    - Role: Admin
-
-- **Super Admin**
-    - Email: `super_admin@mail.com`
-    - Password: `111111`
-    - Role: SuperAdmin
-
-***
-
-This automatic seeding ensures the application is immediately accessible for both **admin** and **super admin** testing.
-
-## 🗂️ Recommended Project Flow
-
-1. Clone this template.  
-2. Reset git history & connect to a new remote repo.  
-3. Rename the project (pom.xml + packages).  
-4. Configure database in `application.properties`.  
-5. Start adding **business logic and features** on top of JWT auth. 🚀
+* 👤 **User**
+* 🛠️ **Admin**
+* 👑 **SuperAdmin**
 
 ---
 
-Happy Coding! ⚡
+### Authentication & User APIs
 
+| Endpoint         | Method | Request Body                                      | Access Level           |
+| ---------------- | ------ | ------------------------------------------------- | ---------------------- |
+| `/auth/register` | POST   | `{ "email": "", "password": "", "fullName": "" }` | Public                 |
+| `/auth/login`    | POST   | `{ "email": "", "password": "" }`                 | Public                 |
+| `/admins`        | POST   | `{ "email": "", "password": "", "fullName": "" }` | SuperAdmin only        |
+| `/users/me`      | GET    | None                                              | Any Authenticated User |
+| `/users`         | GET    | None                                              | Admin, SuperAdmin      |
+
+> 🔑 For protected routes, send JWT in header:
+> `Authorization: Bearer <jwt_token>`
+
+---
+
+## 👥 Pre-Seeded Users
+
+On first run, the app seeds two users:
+
+| Role       | Email                  | Password | Access      |
+| ---------- | ---------------------- | -------- | ----------- |
+| Admin      | `admin@mail.com`       | `111111` | Admin APIs  |
+| SuperAdmin | `super_admin@mail.com` | `111111` | Full Access |
+
+---
+
+## 📂 Recommended Workflow
+
+1. Clone this template
+2. Reset git & connect to your repo
+3. Rename project (pom.xml + package refactor)
+4. Configure DB & JWT secret
+5. Start adding **business logic** 🎯
+
+---
+
+## 🔗 Git Setup Example
+
+```bash
+git remote add origin git@github.com:AKSHAY-1505/SpringBoot-JWT-Auth-Template.git
+git branch -M develop
+git push -u origin develop
+```
+
+---
+
+💡 Happy Coding! ⚡
